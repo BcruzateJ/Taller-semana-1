@@ -97,21 +97,6 @@ struct Producto reabastecerProducto(struct Producto p) {
     return p;
 }
 
-void consultarProducto(struct Producto p, float capital_inicial) {
-    printf("\n=== Informacion del Producto ===\n");
-    printf("ID: %s\n", p.id);
-    printf("Nombre: %s\n", p.nombre);
-    printf("Cantidad en stock: %d\n", p.cantidad_stock);
-    printf("Precio normal (para reabastecer): %.2f\n", p.precio_normal);
-    printf("Precio de venta: %.2f\n", p.precio_venta);
-    printf("Ganancias obtenidas: %.2f\n", p.ganancias);
-    printf("Gastos totales: %.2f\n", p.gastos);
-    printf("Ganancia neta: %.2f\n", p.ganancias - p.gastos);
-    
-    float capital_total = capital_inicial + p.ganancias - p.gastos;
-    printf("Dinero total (Capital Inicial + Ganancias - Gastos): %.2f\n", capital_total);
-}
-
 int main() {
     struct Producto producto;
     float capital_inicial;
@@ -128,10 +113,10 @@ int main() {
         printf("\n=== Menu ===\n");
         printf("1. Vender producto\n");
         printf("2. Reabastecer producto\n");
-        printf("3. Consultar información\n");
-        printf("4. Mostrar ganancias netas\n");
-        printf("5. Salir\n");
+        printf("3. Mostrar ganancias netas\n");
+        printf("4. Salir\n");
         printf("Seleccione una opción: ");
+        
         if (scanf("%d", &opcion) != 1) {
             printf("Opción invalida. Intente de nuevo.\n");
             while (getchar() != '\n');
@@ -147,18 +132,26 @@ int main() {
                 producto = reabastecerProducto(producto);
                 break;
             case 3:
-                consultarProducto(producto, capital_inicial);
+                printf("\n=== Informacion del Producto ===\n");
+                printf("ID: %s\n", producto.id);
+                printf("Nombre: %s\n", producto.nombre);
+                printf("Cantidad en stock: %d\n", producto.cantidad_stock);
+                printf("Precio normal (para reabastecer): %.2f\n", producto.precio_normal);
+                printf("Precio de venta: %.2f\n", producto.precio_venta);
+                printf("Ganancias obtenidas: %.2f\n", producto.ganancias);
+                printf("Gastos totales: %.2f\n", producto.gastos);
+                printf("Ganancia neta: %.2f\n", producto.ganancias - producto.gastos);
+                
+                float capital_total = capital_inicial + producto.ganancias - producto.gastos;
+                printf("Dinero total (Capital Inicial + Ganancias - Gastos): %.2f\n", capital_total);
                 break;
             case 4:
-                printf("Ganancias netas: %.2f\n", producto.ganancias - producto.gastos);
-                break;
-            case 5:
                 printf("Saliendo del programa...\n");
                 break;
             default:
-                printf("Opcion no valida. Intente de nuevo.\n");
+                printf("Opción no válida. Intente de nuevo.\n");
         }
-    } while (opcion != 5);
+    } while (opcion != 4);
 
     return 0;
 }
